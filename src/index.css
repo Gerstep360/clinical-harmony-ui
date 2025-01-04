@@ -1,4 +1,3 @@
-/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,49 +5,49 @@
 @layer base {
   /* Modo Claro */
   :root {
-    --background: 0 0% 100%; /* Blanco */
-    --foreground: 222.2 84% 4.9%; /* Casi negro */
-    --card: 0 0% 100%; /* Blanco */
-    --card-foreground: 222.2 84% 4.9%; /* Casi negro */
-    --popover: 0 0% 100%; /* Blanco */
-    --popover-foreground: 222.2 84% 4.9%; /* Casi negro */
-    --primary: 220 25% 78%; /* Pastel Blue */
-    --primary-foreground: 210 40% 98%; /* Blanco */
-    --secondary: 344 100% 88%; /* Pastel Pink */
-    --secondary-foreground: 210 40% 98%; /* Blanco */
-    --muted: 0 0% 88%; /* Pastel Gray */
-    --muted-foreground: 0 0% 25%; /* Gris Oscuro */
-    --accent: 0 0% 88%; /* Pastel Gray */
-    --accent-foreground: 210 40% 98%; /* Blanco */
-    --destructive: 350 100% 80%; /* Light Pink */
-    --destructive-foreground: 210 40% 98%; /* Blanco */
-    --border: 210 25% 90%; /* Pastel Gray */
-    --input: 210 25% 90%; /* Pastel Gray */
-    --ring: 220 25% 78%; /* Pastel Blue */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 220 25% 78%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 344 100% 88%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 0 0% 88%;
+    --muted-foreground: 0 0% 25%;
+    --accent: 0 0% 88%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 350 100% 80%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 210 25% 90%;
+    --input: 210 25% 90%;
+    --ring: 220 25% 78%;
     --radius: 0.75rem;
   }
 
   /* Modo Oscuro */
   .dark {
-    --background: 222.2 84% 4.9%; /* Dark Blue */
-    --foreground: 210 40% 98%; /* Blanco */
-    --card: 222.2 84% 4.9%; /* Dark Blue */
-    --card-foreground: 210 40% 98%; /* Blanco */
-    --popover: 222.2 84% 4.9%; /* Dark Blue */
-    --popover-foreground: 210 40% 98%; /* Blanco */
-    --primary: 208 66% 67%; /* Baby Blue */
-    --primary-foreground: 210 40% 98%; /* Blanco */
-    --secondary: 350 100% 65%; /* Light Pink */
-    --secondary-foreground: 210 40% 98%; /* Blanco */
-    --muted: 0 0% 17%; /* Dark Gray */
-    --muted-foreground: 0 0% 65%; /* Pale Green */
-    --accent: 0 0% 17%; /* Dark Gray */
-    --accent-foreground: 210 40% 98%; /* Blanco */
-    --destructive: 330 100% 60%; /* Hot Pink */
-    --destructive-foreground: 210 40% 98%; /* Blanco */
-    --border: 0 0% 17%; /* Light Pink */
-    --input: 0 0% 17%; /* Light Pink */
-    --ring: 220 25% 78%; /* Pastel Blue */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 208 66% 67%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 350 100% 65%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 0 0% 17%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 330 100% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 0 0% 17%;
+    --input: 0 0% 17%;
+    --ring: 220 25% 78%;
   }
 }
 
@@ -57,6 +56,16 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground transition-colors duration-500;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
+}
+
+/* Improved transitions for theme changes */
+.transition-theme {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Smooth sidebar transitions */
+.sidebar-transition {
+  @apply transition-transform duration-300 ease-in-out;
 }

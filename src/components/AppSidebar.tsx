@@ -1,4 +1,3 @@
-// src/components/AppSidebar.tsx
 import { FileText, Home, Search, User, Users } from "lucide-react";
 import {
   Sidebar,
@@ -21,10 +20,10 @@ const menuItems = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="bg-card dark:bg-card-dark transition-colors duration-500">
+    <Sidebar className="bg-card transition-theme">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground dark:text-foreground transition-colors duration-500">
+          <SidebarGroupLabel className="text-foreground transition-theme">
             Clínica
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -34,7 +33,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <a
                       href={item.url}
-                      className="flex items-center gap-2 text-foreground dark:text-foreground hover:text-primary transition-colors duration-300"
+                      className="flex items-center gap-2 text-foreground hover:text-primary transition-theme"
                     >
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
