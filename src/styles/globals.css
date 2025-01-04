@@ -1,0 +1,42 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Clases personalizadas si es necesario */
+.bg-background {
+  @apply bg-gray-100;
+}
+.dark .bg-background {
+  @apply bg-gray-900;
+}
+
+.text-text-primary {
+  @apply text-gray-900;
+}
+.dark .text-text-primary {
+  @apply text-gray-100;
+}
+
+.bg-card-bg {
+  @apply bg-white;
+}
+.dark .bg-card-bg {
+  @apply bg-gray-800;
+}
+
+.text-muted-foreground {
+  @apply text-gray-500;
+}
+.dark .text-muted-foreground {
+  @apply text-gray-400;
+}
+
+.hover\:bg-muted:hover {
+  @apply bg-gray-200;
+}
+.dark .hover\:bg-muted-dark:hover {
+  @apply bg-gray-700;
+}
+
+/* Añade más estilos personalizados según tus necesidades */

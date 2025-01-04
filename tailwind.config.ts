@@ -1,3 +1,4 @@
+// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,11 +54,15 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         clinic: {
-          blue: "#D3E4FD",
-          green: "#F2FCE2",
-          purple: "#E5DEFF",
-          peach: "#FDE1D3",
+          blue: "#AEC6CF",
+          pink: "#FFD1DC",
+          gray: "#CFCFC4",
+          green: "#BFD8B8",
+          peach: "#FFDAB9",
+          lightPink: "#FFB6C1",
+          lightGray: "#E0E0E0",
         },
+        // Colores pastel adicionales si es necesario
       },
       borderRadius: {
         lg: "var(--radius)",

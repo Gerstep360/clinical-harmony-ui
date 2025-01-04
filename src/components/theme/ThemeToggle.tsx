@@ -1,18 +1,30 @@
-import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
+// src/components/theme/ThemeToggle.tsx
+import { Moon, Sun } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      onClick={toggleTheme}
+      className="relative focus:outline-none"
     >
-      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      {/* Icono de Sol para modo claro */}
+      <Sun
+        className={`h-5 w-5 transition-opacity duration-300 ease-in-out ${
+          theme === 'light' ? 'opacity-100' : 'opacity-0'
+        }`}
+      />
+      {/* Icono de Luna para modo oscuro */}
+      <Moon
+        className={`h-5 w-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${
+          theme === 'dark' ? 'opacity-100' : 'opacity-0'
+        }`}
+      />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
