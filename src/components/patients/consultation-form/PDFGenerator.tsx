@@ -73,6 +73,7 @@ export const PDFGenerator = ({ data, patientName }: PDFGeneratorProps) => (
   >
     {({ loading }) => (
       <Button 
+        variant="outline"
         disabled={loading}
         className="w-full md:w-auto animate-fade-in"
       >
