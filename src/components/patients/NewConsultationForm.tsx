@@ -1,19 +1,15 @@
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { VitalSignsSection } from "./consultation-form/VitalSignsSection";
+import { EvaluationSection } from "./consultation-form/EvaluationSection";
+import { DiagnosisSection } from "./consultation-form/DiagnosisSection";
+import { PDFGenerator } from "./consultation-form/PDFGenerator";
+import { ConsultationFormData } from "./consultation-form/types";
+import { Save } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const consultationSchema = z.object({
   temperatura: z.string().min(1, "La temperatura es requerida"),
@@ -30,10 +26,12 @@ const consultationSchema = z.object({
 
 interface NewConsultationFormProps {
   patientId: number;
+  patientName: string;
 }
 
-export const NewConsultationForm = ({ patientId }: NewConsultationFormProps) => {
-  const form = useForm<z.infer<typeof consultationSchema>>({
+export const NewConsultationForm = ({ patientId, patientName }: NewConsultationFormProps) => {
+  const { toast } = useToast();
+  const form = useForm<ConsultationFormData>({
     resolver: zodResolver(consultationSchema),
     defaultValues: {
       temperatura: "",
@@ -49,170 +47,36 @@ export const NewConsultationForm = ({ patientId }: NewConsultationFormProps) => 
     },
   });
 
-  const onSubmit = (values: z.infer<typeof consultationSchema>) => {
-    console.log(values);
-    // Implement form submission logic here
+  const onSubmit = async (values: ConsultationFormData) => {
+    try {
+      console.log("Form values:", values);
+      // Implement form submission logic here
+      
+      toast({
+        title: "Consulta guardada",
+        description: "La consulta se ha guardado exitosamente.",
+      });
+    } catch (error) {
+      console.error("Error saving consultation:", error);
+      toast({
+        title: "Error",
+        description: "Hubo un error al guardar la consulta.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 animate-fade-in">
-        <Card className="bg-clinic-blue/30">
-          <CardHeader>
-            <CardTitle>Signos Vitales</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <FormField
-              control={form.control}
-              name="temperatura"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Temperatura (°C)</FormLabel>
-                  <FormControl>
-                    <Input type="number" step="0.1" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="talla"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Talla (cm)</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="peso"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Peso (kg)</FormLabel>
-                  <FormControl>
-                    <Input type="number" step="0.1" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fc"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Frecuencia Cardíaca</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="pa"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Presión Arterial</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="120/80" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fr"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Frecuencia Respiratoria</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-        </Card>
+        <VitalSignsSection form={form} />
+        <EvaluationSection form={form} />
+        <DiagnosisSection form={form} />
 
-        <Card className="bg-clinic-green/30">
-          <CardHeader>
-            <CardTitle>Evaluación</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FormField
-              control={form.control}
-              name="subjetivo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Motivo de Consulta</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="objetivo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Evaluación Objetiva</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-        </Card>
-
-        <Card className="bg-clinic-purple/30">
-          <CardHeader>
-            <CardTitle>Diagnóstico y Plan</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FormField
-              control={form.control}
-              name="analisis"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Análisis/Diagnóstico</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="plan_de_accion"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Plan de Acción</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-        </Card>
-
-        <div className="flex justify-end">
+        <div className="flex flex-col md:flex-row gap-4 justify-end">
+          <PDFGenerator data={form.getValues()} patientName={patientName} />
           <Button type="submit" className="w-full md:w-auto">
+            <Save className="mr-2" />
             Guardar Consulta
           </Button>
         </div>
