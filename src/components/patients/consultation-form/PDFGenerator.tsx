@@ -74,10 +74,10 @@ export const PDFGenerator = ({ data, patientName }: PDFGeneratorProps) => {
       document={<ConsultationPDF data={data} patientName={patientName} />}
       fileName={fileName}
     >
-      {({ loading, error }) => (
+      {({ loading }) => (
         <Button 
           variant="outline"
-          disabled={loading || !!error}
+          disabled={loading}
           className="w-full md:w-auto animate-fade-in"
         >
           <FileDown className="mr-2" />
