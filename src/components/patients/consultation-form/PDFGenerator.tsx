@@ -79,6 +79,7 @@ export const PDFGenerator = ({ data, patientName }: PDFGeneratorProps) => {
           variant="outline"
           disabled={loading}
           className="w-full md:w-auto animate-fade-in"
+          type="button"
         >
           <FileDown className="mr-2" />
           {loading ? "Generando PDF..." : "Descargar PDF"}
