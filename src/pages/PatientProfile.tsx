@@ -36,12 +36,14 @@ const PatientProfile = () => {
     factor_rh: "Positivo",
   };
 
+  const patientFullName = `${patient.nombres} ${patient.apellido_paterno} ${patient.apellido_materno}`;
+
   return (
     <div className="container mx-auto p-6 space-y-6 animate-fade-in">
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">
-            {patient.nombres} {patient.apellido_paterno} {patient.apellido_materno}
+            {patientFullName}
           </CardTitle>
           <CardDescription>ID: {patient.id_paciente}</CardDescription>
         </CardHeader>
@@ -60,7 +62,10 @@ const PatientProfile = () => {
           <ConsultationHistory patientId={patient.id_paciente} />
         </TabsContent>
         <TabsContent value="new-consultation" className="mt-6">
-          <NewConsultationForm patientId={patient.id_paciente} />
+          <NewConsultationForm 
+            patientId={patient.id_paciente} 
+            patientName={patientFullName}
+          />
         </TabsContent>
       </Tabs>
     </div>
