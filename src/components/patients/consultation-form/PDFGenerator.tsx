@@ -1,4 +1,4 @@
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
 import { ConsultationFormData } from "./types";
 import { Button } from "@/components/ui/button";
 import { FileDown } from "lucide-react";
@@ -66,20 +66,24 @@ const ConsultationPDF = ({ data, patientName }: PDFGeneratorProps) => (
   </Document>
 );
 
-export const PDFGenerator = ({ data, patientName }: PDFGeneratorProps) => (
-  <PDFDownloadLink
-    document={<ConsultationPDF data={data} patientName={patientName} />}
-    fileName={`consulta_${patientName.toLowerCase().replace(/\s+/g, '_')}.pdf`}
-  >
-    {({ loading }) => (
-      <Button 
-        variant="outline"
-        disabled={loading}
-        className="w-full md:w-auto animate-fade-in"
-      >
-        <FileDown className="mr-2" />
-        {loading ? "Generando PDF..." : "Descargar PDF"}
-      </Button>
-    )}
-  </PDFDownloadLink>
-);
+export const PDFGenerator = ({ data, patientName }: PDFGeneratorProps) => {
+  const fileName = `consulta_${patientName.toLowerCase().replace(/\s+/g, '_')}.pdf`;
+  
+  return (
+    <PDFDownloadLink
+      document={<ConsultationPDF data={data} patientName={patientName} />}
+      fileName={fileName}
+    >
+      {({ loading, error }) => (
+        <Button 
+          variant="outline"
+          disabled={loading || !!error}
+          className="w-full md:w-auto animate-fade-in"
+        >
+          <FileDown className="mr-2" />
+          {loading ? "Generando PDF..." : "Descargar PDF"}
+        </Button>
+      )}
+    </PDFDownloadLink>
+  );
+};
